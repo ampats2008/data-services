@@ -14,8 +14,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Link Stylesheets -->
-        <link id="faviconImg" rel="shortcut icon" href='/SiteAssets/img/clientLogo.svg'/>
-        <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="/SiteAssets/css/main.css" />
+        <link id="faviconImg" rel="shortcut icon" href='SiteAssets/img/clientLogo.svg'/>
+        <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="SiteAssets/css/main.css" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
 
     <!-- Roboto font link -->
@@ -198,7 +198,7 @@
 
     <!-- Header -->
     <div id="siteHead" class="flexRow">
-        <div id="logoContainer"><a href="/index.html"><img id="clientLogo" src="/SiteAssets/img/clientLogo.svg"></a></div>
+        <div id="logoContainer"><a href="/index.html"><img id="clientLogo" src="SiteAssets/img/clientLogo.svg"></a></div>
         <!-- Navigation Bar -->
         <div id="navContainer">
             <div id="siteNavbar">
@@ -270,7 +270,7 @@
                 wsDesc = 'Sorry, there is no description for this service at the moment.';
             }		
             
-            htmlTile += '<div class="quadrant"><div class="tile" onclick="openLink(\''+ wsName +'\')" style="cursor:pointer;"><div class="tileImg"><img src="/SiteAssets/img/'+ wsIcon +'.png"></div><p>'+ wsName +'</p>';
+            htmlTile += '<div class="quadrant"><div class="tile" onclick="openLink(\''+ wsName +'\')" style="cursor:pointer;"><div class="tileImg"><img src="SiteAssets/img/'+ wsIcon +'.png"></div><p>'+ wsName +'</p>';
             htmlTile += '<div class="i-button"><i class="material-icons-outlined">info</i><div class="desc-box"><p class="desc-text">'+ wsDesc +'</p></div></div></div></div>';
             
             // output to this element on html page
