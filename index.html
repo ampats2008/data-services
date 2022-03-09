@@ -1,0 +1,442 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- 
+        Author: Anthony Medugno
+        Last Updated: 3-07-2022
+
+        This is a static, demo version of my client's Data Services website:
+            *.aspx pages have been converted to *.html templates
+            JS has been moved from external scripts to inline <script> for the purposes of this demo.
+            Internal client data has been replaced with dummy sample data. However, the logic presented in the JS 
+            remains unchanged from the full version.
+
+    -->
+
+<title>Data Services | Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="faviconImg" rel="shortcut icon" href='/SiteAssets/img/clientLogo.svg'/>
+    <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="/SiteAssets/css/main.css" />
+    
+    <!-- Roboto font link -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+
+<style>    
+    .whitespace {
+        flex: 10%;
+    }
+    
+    .mainContent {
+        background-color: #FFF;
+        flex: 80%;
+        padding: 20px;
+        min-height: 850px;
+        color:#494949;
+    }
+    /* Main column */
+    /* Site banner */
+    
+    #siteBanner {
+        height: 20vh;
+        width: 100%;
+        background-color: #076885;
+        background-image: url('/SiteAssets/img/siteBanner.jpg');
+        background-repeat: no-repeat;
+        background-position: top;
+        position: relative;
+    }
+    
+    #bannerContent {
+        position: relative;
+        margin: 0 auto;
+        width: 80%;
+        height: 100%;
+        color: #FFF;
+        text-shadow: 1px 1px grey;
+    }
+    
+    #bannerContent>#banHelp {
+        position: absolute;
+        top: 0px;
+        left: 40px;
+    }
+    
+    #bannerContent>#banDS {
+        position: absolute;
+        bottom: 25px;
+        right: 220px;
+    }
+    
+    #bannerContent>#banDSTagline {
+        position: absolute;
+        bottom: -10px;
+        right: 40px;
+    }
+    
+    .flexItem {
+        flex: 3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 320px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 20px;
+    }
+    /* TOP ROW */
+    
+    .flexItem2 {
+        flex: 4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 240px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 20px;
+    }
+    
+    .flexItem2>.cutTile {
+        width: 350px;
+    }
+    
+    .flexItem2>.cutTile>img {
+        position: static;
+        margin-top: 50px;
+        height: 90px;
+        width: auto;
+    }
+    
+    .flexItem2>.cutTile>#dataDictImg,
+    .flexItem2>.cutTile>#wsImg {
+        margin-left: 30px;
+    }
+    
+    .flexItem2>.cutTile>#dfdImg {
+        margin-left: 50px;
+        width: 70px;
+    }
+    
+    .tileText {
+        position: absolute;
+        width: auto;
+        top: 0px;
+        right: 20px;
+    }
+    /* BOTTOM ROW */
+    
+    .flexItem>.cutTile {
+        width: 270px;
+    }
+    
+    .bottomRowImg {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .flexItem>.cutTile>.bottomRowImg>img {
+        display: block;
+        height: 85px;
+        width: auto;
+        margin: 40px auto;
+    }
+    
+    .tileText2 {
+        position: absolute;
+        width: 245px;
+        bottom: 30px;
+        left: 10px;
+        text-align: center;
+    }
+    
+    .tileWelcomeText {
+        text-align: center;
+        color: #03B0D0;
+    }
+    
+    .cutTile {
+        position: relative;
+        height: 95%;
+        padding: 10px;
+        background: #F8F8F8;
+        border-right: 2px solid #E9E9E9;
+        border-top: 2px solid #E9E9E9;
+        border-left: 2px solid #E9E9E9;
+        cursor: pointer;
+    }
+
+    /* Clip path for the notches on each tile */
+    
+    .clipTopRow {
+        -webkit-clip-path: polygon(100% 0%, 100% 81%, 90% 100%, 0 100%, 0 0, 25% 0%);
+        clip-path: polygon(100% 0%, 100% 81%, 90% 100%, 0 100%, 0 0, 25% 0%);
+    }
+    
+    .clipBottomRow {
+        -webkit-clip-path: polygon(100% 0%, 100% 85%, 85% 100%, 0 100%, 0 0, 25% 0%);
+        clip-path: polygon(100% 0%, 100% 85%, 85% 100%, 0 100%, 0 0, 25% 0%);
+    }
+    /* The Modal (background) */
+    
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 5vh;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+    /* Modal Section */
+    
+    .modal-content {
+        position: relative;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 0;
+        border: 1px solid #888;
+        width: 70vw;
+        height: 69vh;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        -webkit-animation-name: animatetop;
+        -webkit-animation-duration: 0.4s;
+        animation-name: animatetop;
+        animation-duration: 0.4s
+    }
+    /* Add Animation */
+    
+    @-webkit-keyframes animatetop {
+        from {
+            top: -300px;
+            opacity: 0
+        }
+        to {
+            top: 0;
+            opacity: 1
+        }
+    }
+    
+    @keyframes animatetop {
+        from {
+            top: -300px;
+            opacity: 0
+        }
+        to {
+            top: 0;
+            opacity: 1
+        }
+    }
+    /* The Close Button */
+    
+    .close {
+        color: white;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+        color: #043E50;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    .modal-header {
+        padding: 2px 16px;
+        background-color: #03B0D0;
+        color: white;
+        text-shadow: 1px 1px grey;
+    }
+    
+    .modal-body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+    }
+    
+    .modal-body>iframe {
+        flex-grow: 1;
+    }
+    /* End of Modal Section */
+    /* Responsive layout */
+    
+    @media screen and (max-width: 1000px) {
+        .mainContent>.flexRow>.flexItem,
+        .mainContent>.flexRow>.flexItem2 {
+            flex: none;
+            margin: 0 auto;
+        }
+    }
+    
+    @media screen and (max-width: 782px) {
+        .mainContent>.flexRow>div {
+            margin: 0 auto;
+            width: 100%;
+        }
+    }
+    
+    @media screen and (max-width: 700px) {
+        #bannerContent {
+            width: 100%;
+        }
+    }
+</style>
+
+<body style="min-height: 100vh; display: flex; flex-direction: column;">
+
+    <!-- Header -->
+    <div id="siteHead" class="flexRow">
+        <div id="logoContainer">
+            <a href="/index.html"><img id="clientLogo" src="/SiteAssets/img/clientLogo.svg"></a>
+        </div>
+        <!-- Navigation Bar -->
+        <div id="navContainer">
+            <div id="siteNavbar">
+                <a href="/index.html">Home</a>
+                <a href="#">Data Dictionaries</a>
+                <a href="/ServiceCatalog.html">Web Services</a>
+                <a href="#">Data Flow Diagrams</a>
+                <a href="#">Questions</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page-Specific Content -->
+    <div class="pageContent flexRow" style="flex-grow: 1">
+    	<!-- 'flex-grow: 1' will push footer to bottom of page using flexbox
+    	if there is not enough content to fill the height of the window -->
+        <div id="siteBanner">
+            <div id="bannerContent">
+                <h1 id="banHelp">What can we help you find today?</h1>
+                <h2 id="banDS"><i>Data Services</i></h2>
+                <h2 id="banDSTagline"><i>Data at your fingertips...</i></h2>
+            </div>
+        </div>
+        <div class="whitespace"></div>
+
+        <div class="mainContent">
+            <div class="flexRow">
+                <div class="flexItem2">
+                    <div class="cutTile clipTopRow" style="border-bottom: 10px solid #03B0D0;">
+                        <img id="dataDictImg" src="/SiteAssets/img/DataDictionaries.png">
+                        <h1 class="tileText">Data<br>Dictionaries</h1>
+                    </div>
+                </div>
+                <div class="flexItem2">
+                    <div class="cutTile clipTopRow" onclick="openLink('ServiceCatalog.html')" style="border-bottom: 10px solid #0590AA;">
+                        <img id="wsImg" src="/SiteAssets/img/WebServices.png">
+                        <h1 class="tileText">Web<br>Services</h1>
+                    </div>
+                </div>
+                <div class="flexItem2">
+                    <div class="cutTile clipTopRow" style="border-bottom: 10px solid #666A6A;">
+                        <img id="dfdImg" src="/SiteAssets/img/DataFlowDiagrams.png">
+                        <h1 class="tileText">Data Flow<br>Diagrams</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="flexRow" style="margin-top: 20px;">
+                <div class="flexItem">
+                    <div class="cutTile clipBottomRow" style="border-bottom: 2px solid #E9E9E9; cursor: auto;">
+                        <h2 class="tileWelcomeText">Welcome, John Doe!</h2>
+                        <p style="line-height: 1.5; text-indent: 15px;">Welcome to the new Data Service catalog. We’ve redesigned and re-organized the catalog to bring everything we have right to your fingertips.
+                            <i>Note: this demo version of the site only contains the 'Web Services' and 'About this Site' sections.</i>
+                        </p>
+                    </div>
+                </div>
+                <div class="flexItem">
+                    <div class="cutTile clipBottomRow" style="border-bottom: 10px solid #146A98;">
+                        <div class="bottomRowImg"><img src="/SiteAssets/img/Questions.png"></div>
+                        <h1 class="tileText2">Ask a Question</h1>
+                    </div>
+                </div>
+                <div class="flexItem">
+                    <div id="aboutTile" class="cutTile clipBottomRow" style="border-bottom: 10px solid #25EAF2;">
+                        <div id="aboutImg" class="bottomRowImg"><img style="margin-top: 50px; height: 55px;" src="/SiteAssets/img/About.png"></div>
+                        <h1 class="tileText2">About this Site</h1>
+                    </div>
+                </div>
+                <div class="flexItem">
+                    <div class="cutTile clipBottomRow" onclick="openAbsLink('https://join.slack.com/')" style="border-bottom: 10px solid #16E5A5;">
+                        <div class="bottomRowImg"><img src="/SiteAssets/img/Slack.png"></div>
+                        <h1 class="tileText2">Slack</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="whitespace "></div>
+    </div>
+    <!-- End of Page-Specific Content -->
+
+    <!-- Footer -->
+    <div class="footer">
+        <h3 style="color: red">Note: This is a static, demo version of this web application.</h3>
+        <h5>© 2021 Example Client, Inc. All Rights Reserved</h5>
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>How this Site works:</h2>
+            </div>
+            <div class="modal-body">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/nf4j02kQr9k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>          
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    // onClick of a Tile, open the linked page in same tab
+    function openLink(pageName) {
+        window.open('/' + pageName, "_self");
+    }
+    // onClick of Slack tile, open the linked page in a new tab
+    function openAbsLink(url) {
+        window.open(url, "_blank");
+    }
+</script>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("aboutTile");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+</html>

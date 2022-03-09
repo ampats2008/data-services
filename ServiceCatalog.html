@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- 
+        Author: Anthony Medugno
+        Last Updated: 3-07-2022
+
+        This is a static, demo version of my client's Data Services website.
+    -->
+
+<title>Data Services | Catalog</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Link Stylesheets -->
+        <link id="faviconImg" rel="shortcut icon" href='/SiteAssets/img/clientLogo.svg'/>
+        <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="/SiteAssets/css/main.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+
+    <!-- Roboto font link -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    
+    <!-- Load jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<style>
+    /* Create two unequal columns that sit next to each other */
+    /* Sidebar/left column */
+    .side {
+        flex: 30%;
+        padding: 20px;
+    }
+    /* Main column */
+    
+    .whitespace {
+        flex: 10%;
+    }
+    
+    .mainContent {
+        flex: 80%;
+        padding: 20px;
+    }
+    
+    .mainContent>#row {
+        max-width: 680px;
+        margin: 0 auto;
+        min-height: 700px;
+    }
+    
+    /* Style for Tiles section */
+    
+    #row {
+        position: relative;
+        max-width: 680px;
+        margin-top: 100px;
+        height: auto;
+    }
+    
+    .quadrant {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        float: left;
+        height: 160px;
+        width: 24.7%;
+        min-width: 122px;
+    }
+    
+    .tile>.tileImg {
+        width: 100%;
+        height: 45%;
+    }
+    
+    .tile>.tileImg>img {
+        display: block;
+        margin: 10px auto;
+        width: auto;
+        height: 40px;
+        filter: invert(56%) sepia(44%) saturate(6066%) hue-rotate(157deg) brightness(102%) contrast(98%);
+    }
+    
+    .tile {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        border-right: 3px solid #E9E9E9;
+        border-top: 3px solid #E9E9E9;
+        border-left: 3px solid #E9E9E9;
+        border-bottom: 5px solid #03B0D0;        
+        background-color: whitesmoke;
+        height: 120px;
+        width: 140px;
+        box-shadow: 10px 10px 20px rgb(218, 216, 216);
+    }
+    
+    .tile:hover {
+        transition: all 0.2s;
+        background-color: #03b1d05e;        
+    }
+
+    .tile:hover .tileImg>img {
+        transition: all 0.2s;
+        filter: invert(56%) sepia(44%) saturate(6066%) hue-rotate(157deg) brightness(80%) contrast(98%);
+    }
+
+    .tile:hover p {
+        font-weight: 400;
+    }
+    
+    .tile>p {
+        text-align: center;
+        font-size: 10pt;
+        padding: 0 2px;
+    }
+    
+    .tile>.i-button {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        bottom: 3px;
+        right: 3px;
+        text-align: center;
+    }
+    
+    .tile>.i-button>i {
+        font-size: 13pt;
+    }
+    
+    .tile>.i-button>i:hover {
+        transition: .2s;
+        color: #03b0d0;
+    }
+    
+    .tile>.i-button>.desc-box {
+        position: absolute;
+        right: -117px;
+        top: 27px;
+        z-index: 1;
+        width: 250px;
+        min-height: auto;
+        border: 3px solid #03b0d0;
+        border-radius: 2px;
+        background-color: #F8F8F8;
+        box-shadow: 2px 2px 3px #888888;
+        /* transition so that it appears on hover */
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity .2s ease-out, visibility .2s ease-out;
+    }
+    
+    .tile>.i-button>i:hover+.desc-box {
+        /* display description box on hover of info icon */
+        visibility: visible;
+        opacity: 1;
+        transition: opacity .2s ease-in, visibility .2s ease-in;
+    }
+    
+    .tile>.i-button>.desc-box>.desc-text {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .2s ease-out, visibility .2s ease-out;
+    }
+    
+    .tile>.i-button>i:hover+.desc-box>.desc-text {
+        /* display description box text on hover of info icon */
+        opacity: 1;
+        visibility: visible;
+        transition: opacity .2s ease-in, visibility .2s ease-in;
+    }
+    
+    .tile>.i-button>.desc-box>.desc-text {
+        margin: 2px;
+        padding: 0;
+        text-align: left;
+        font-size: 10pt;
+    }
+    
+    #requestLink {
+    	text-align: center;
+    }
+    
+    /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+    
+    @media screen and (max-width: 800px) {
+        .whitespace {
+            flex: 0%;
+            display: none;
+        }
+    }
+    
+</style>
+
+<body style="min-height: 100vh; display: flex; flex-direction: column;">
+
+    <!-- Header -->
+    <div id="siteHead" class="flexRow">
+        <div id="logoContainer"><a href="/index.html"><img id="clientLogo" src="/SiteAssets/img/clientLogo.svg"></a></div>
+        <!-- Navigation Bar -->
+        <div id="navContainer">
+            <div id="siteNavbar">
+                <a href="/index.html">Home</a>
+                <a href="#">Data Dictionaries</a>
+                <a href="/ServiceCatalog.html">Web Services</a>
+                <a href="#">Data Flow Diagrams</a>
+                <a href="#">Questions</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page-Specific Content -->
+    <div class="pageContent flexRow" style="flex-grow: 1">
+        <div class="whitespace"></div>
+
+        <div class="mainContent">
+            <div class="pageHead">
+                <h2>Our Web Services</h2>
+                <h5>Categories of our web service offerings.</h5>
+                <hr>
+            </div>
+            <div id="row"></div>
+            <div id="requestLink">
+            	<p>Can't find what you're looking for? Click <a href="#">here</a> to submit a request for a new Web Service.</p>
+            </div>
+        </div>
+
+        <div class="whitespace"></div>
+    </div>
+    <!-- End of Page-Specific Content -->
+
+    <!-- Footer -->
+    <div class="footer">
+        <h3 style="color: red">Note: This is a static, demo version of this web application.</h3>
+        <h5>© 2021 Example Client, Inc. All Rights Reserved</h5>
+    </div>
+
+</body>
+
+<script>
+    // onClick of a WS, open the individual WS page, passing the name of the WS into the URL
+    function openLink(wsName) {
+        window.open(
+            '/WebService.html?ws=' + wsName,"_self");
+    }
+
+    // select random item from array
+    Array.prototype.random = function () {
+        return this[Math.floor((Math.random()*this.length))];
+    }
+
+    // Create dummy list of web services
+    const webServices = []
+    for (let i = 0; i < 16; i++) {
+        let webService = {
+            'wsName': ['Example Service', 'Customers', 'Places', 'Things', 'Lorem Ipsum'].random(),
+            'wsDesc': ['This is where we insert a description for the web service.', 'Sorry, there is no description for this service at the moment.'].random(),
+            'wsIcon': ['Projects','Portfolios','Locations'].random()
+        }
+
+        webServices.push(webService);
+    }
+
+    // output sample content to screen
+	var htmlTile = "";
+	webServices.map(( {wsName, wsDesc, wsIcon} ) => {
+            if (wsDesc === null){
+                wsDesc = 'Sorry, there is no description for this service at the moment.';
+            }		
+            
+            htmlTile += '<div class="quadrant"><div class="tile" onclick="openLink(\''+ wsName +'\')" style="cursor:pointer;"><div class="tileImg"><img src="/SiteAssets/img/'+ wsIcon +'.png"></div><p>'+ wsName +'</p>';
+            htmlTile += '<div class="i-button"><i class="material-icons-outlined">info</i><div class="desc-box"><p class="desc-text">'+ wsDesc +'</p></div></div></div></div>';
+            
+            // output to this element on html page
+            $("#row").html(htmlTile);
+        }
+    );
+
+</script>
+
+</html>

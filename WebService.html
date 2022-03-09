@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- 
+        Author: Anthony Medugno
+        Last Updated: 3-07-2022
+
+        This is a static, demo version of my client's Data Services website.
+    -->
+
+<title>Data Services</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="faviconImg" rel="shortcut icon" href='/favicon.png'/>
+
+    <!-- Link Stylesheets -->
+        <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="/SiteAssets/css/main.css" />
+	
+	<!-- Roboto font link -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <!-- Load jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<style>
+    /* Main column */
+    
+    aside {
+        -webkit-flex: 4;
+        -ms-flex: 4;
+        flex: 4;
+        background: whitesmoke;
+        padding: 0;
+        overflow-y: auto;
+        position: relative;
+        border: 3px solid #E9E9E9;
+    }
+    /* Style the column/field names */
+    
+    aside>p {
+        padding: 0px 10px 0px 10px;
+        line-height: 24pt;
+        overflow-y: auto;
+        max-height: 630px;
+    }
+    
+    #columnsHeader {
+        position: sticky;
+        padding: 10px;
+        width: 100%;
+        height: 30px;
+        top: 0px;
+        background-color: #f1f1f1;
+        text-align: center;
+        border-bottom: 2px solid #03B0D0;
+    }
+    /* Style the content */
+    
+    article {
+        -webkit-flex: 8;
+        -ms-flex: 8;
+        flex: 8;
+        background-color: #fff;
+        padding: 10px;
+    }
+    
+    
+	/* style the access button */
+	#accessBtn {
+	
+		/* font settings */
+	    font-family: Arial, Helvetica, sans-serif;
+	    font-size: 13px;
+	    font-weight: bold;
+	    color: #494949;
+	    
+	    /* button style */
+	    border-right: 3px solid #E9E9E9;
+	    border-top: 3px solid #E9E9E9;
+	    border-left: 3px solid #E9E9E9;
+	    border-bottom: 5px solid #03B0D0;
+	    background-color: whitesmoke;
+	    
+	    min-width: 6em;
+	    padding: 10px 13px;
+	    
+	    /* behavior */
+	    cursor: pointer;
+	
+	}
+	
+	#accessBtn:hover {
+		transition: 0.2s;
+	    box-shadow: inset 0 0 0 5px #03b1d05e;
+	    	    
+	    background-color: whitesmoke;
+	}
+
+    /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+    
+    @media screen and (max-width: 1000px) {
+        .whitespace {
+            display: none;
+        }
+    }
+</style>
+
+<body style="min-height: 100vh; display: flex; flex-direction: column;">
+
+    <!-- Header -->
+    <div id="siteHead" class="flexRow">
+        <div id="logoContainer">
+            <a href="/index.html"><img id="clientLogo" src="/SiteAssets/img/clientLogo.svg"></a>
+        </div>
+        <!-- Navigation Bar -->
+        <div id="navContainer">
+            <div id="siteNavbar">
+                <a href="/index.html">Home</a>
+                <a href="#">Data Dictionaries</a>
+                <a href="/ServiceCatalog.html">Web Services</a>
+                <a href="#">Data Flow Diagrams</a>
+                <a href="#">Questions</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page-Specific Content -->
+    <div class="pageContent flexRow" style="flex-grow: 1">
+        <div class="whitespace"></div>
+
+        <div class="mainContent">
+            <div class="pageHead">
+                <h2 id="serviceName"></h2>
+                <h5 id="Description"></h5>
+                <hr>
+            </div>
+            <div class="flexRow">
+                <article>
+                    <p id="Source">Source: </p>
+                    <p id="Updated">Updated: </p>
+                    <br>
+                    <button id="accessBtn" onclick="openLink()">Request Access</button>
+                </article>
+                <aside>
+                    <div id="columnsHeader"><span>Fields Returned:</span></div>
+                    <p id="wsColumns"></p>
+                </aside>
+            </div>
+        </div>
+
+        <div class="whitespace"></div>
+    </div>
+    <!-- End of Page-Specific Content -->
+	
+    <!-- Footer -->
+    <div class="footer">
+        <h3 style="color: red">Note: This is a static, demo version of this web application.</h3>
+        <h5>© 2021 Example Client, Inc. All Rights Reserved</h5>
+    </div>
+
+</body>
+<script>
+
+    // select random item from array
+    Array.prototype.random = function () {
+        return this[Math.floor((Math.random()*this.length))];
+    }
+
+    function openLink() {
+        alert('Note: the Access Request form is not available in this demo!');
+    }
+
+    webService = {
+        'wsDesc': ['This is where we insert a description for the web service', 'Sorry, there is no description for this service at the moment.'].random(),
+        'wsIcon': ['Projects','Portfolios','Locations'].random(),
+        'wsSource': 'dummyDB',
+        'wsUpdated': new Date().toLocaleDateString(),
+        'wsColumns': 'Sample columns Lorem ipsum dolor sit amet consectetur adipiscing elit Excepteur sint occaecat cupidatat non proident Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur'.toLowerCase(),
+    }
+
+            
+        // vars for outputting html strings to .html page
+		var htmlServiceName= "";
+		var htmlColumns="";
+		var htmlDescription= "";
+		var htmlSource= "";
+		var htmlUpdated= "";
+		
+		//Fields
+		var wsName = GetParameterValues('ws');
+		var wsDesc = webService.wsDesc;
+		var wsColumns = webService.wsColumns;
+		var wsSource = webService.wsSource;
+		var wsUpdated = webService.wsUpdated;
+		var wsIcon = webService.wsIcon;
+		
+		if (wsDesc === null){
+			wsDesc = '';
+		}		
+		
+		htmlServiceName += wsName;
+		htmlDescription += wsDesc;
+		htmlSource += 'Source: ' + wsSource;
+		htmlUpdated += 'Updated: ' + wsUpdated;
+		
+		// count occurances of ' ' in wsColumns
+		var countSpaces = (wsColumns.match(/ /g) || []).length;
+		// count occurances of '\n' in wsColumns
+		var countBreaks = (wsColumns.match(/\n/g) || []).length;
+		
+		// determine whether wsColumns is delimited by ' ' or by '\n' (this depends on how the columns/fields were entered into the list)
+		if (countSpaces < countBreaks){
+			// delimited by '\n' and not ' '
+			htmlColumns += wsColumns.split('\n').join('<br>')
+		} else {
+			htmlColumns += wsColumns.split(' ').join('<br>')
+		}
+				
+		// output to this element on html page
+		$("#serviceName").html(htmlServiceName);
+		$("#wsColumns").html(htmlColumns);
+		$("#Description").html(htmlDescription);
+		$("#Source").html(htmlSource);
+		$("#Updated").html(htmlUpdated);
+		$("title").html("Data Services | "+ wsName)
+		
+		// function to change favicon
+		$('#faviconImg').attr('href', '/SiteAssets/img/'+wsIcon+'.png')
+
+        // parse url for paramaters
+        function GetParameterValues(param) {
+            var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for (var i = 0; i < url.length; i++) {
+                var urlparam = url[i].split('=');
+                if (urlparam[0] == param) {
+                    var count20s = (urlparam[1].match(/%20/g) || []).length;
+                    // check if the paramater value has any '%20' and remove them if so
+                    if (count20s > 0) {
+                        urlparam[1] = urlparam[1].split('%20').join(' ');
+                    }
+                    return urlparam[1];
+                }
+            }
+        }
+
+</script>
+
+</html>

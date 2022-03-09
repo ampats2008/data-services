@@ -1,0 +1,150 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+
+/* Style the body */
+
+body {
+    font-family: Roboto, Helvetica, sans-serif;
+    font-weight: 300;
+    margin: 0;
+}
+
+
+/* Header */
+
+#siteHead {
+    display: flex;
+    padding: 5px;
+    text-align: left;
+    background: #fff;
+    border-bottom: 1px solid #9AA2AD;
+}
+
+
+/* Header logo */
+
+#clientLogo {
+    height: 60px;
+}
+
+#siteHead {
+    flex-wrap: nowrap;
+}
+
+#siteHead>#logoContainer {
+    display: flex;
+    height: 70px;
+    flex: 15%;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+
+/* Style the top navigation bar */
+
+#siteHead>#navContainer {
+    display: flex;
+    height: 70px;
+    flex: 85%;
+    flex-grow: 1;
+}
+
+#siteNavbar {
+    display: flex;
+    align-self: center;
+}
+
+
+/* Style the navigation bar links */
+
+#siteNavbar a {
+    color: #787F87;
+    transition: color .3s;
+    margin-left: 15px;
+    margin-right: 15px;
+    text-decoration: none;
+    text-align: center;
+}
+
+
+/* Change color on hover */
+
+#siteNavbar a:hover {
+    color: #03B0D0;
+}
+
+
+/* Column container */
+
+.flexRow {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.pageContent {
+    background-color: #FFF;
+    /*background-color: #F1F1F1*/
+}
+
+.whitespace {
+    flex: 10%;
+    /*border: 1px solid red;*/
+}
+
+.mainContent {
+	background-color: #FFF;
+    flex: 80%;
+    padding: 20px;
+    min-height: 850px;
+    color: #494949;
+}
+
+.mainContent>.pageHead>hr {
+    border: 3px solid #03B0D0;
+    border-radius: 3px;
+}
+
+
+/* Footer */
+
+.footer {
+    padding: 5px;
+    text-align: center;
+    background: #45aecd;
+    color: white;
+}
+
+
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+
+@media screen and (max-width: 700px) {
+    .flexRow {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 860px) {
+    #siteHead {
+        flex-wrap: wrap;
+    }
+    #navContainer,
+    #logoContainer {
+        justify-content: center;
+        padding-top: 5px;
+    }
+    #siteNavbar {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 660px) {
+    #siteNavbar {
+        flex-direction: column;
+    }
+    #siteNavbar>a {
+        margin-top: 15px;
+    }
+}
